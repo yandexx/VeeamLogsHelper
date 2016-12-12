@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>fileTypes</key>
+	<array>
+		<string>log</string>
+	</array>
+	<key>name</key>
+	<string>Veeam B&amp;R Logs</string>
+	<key>patterns</key>
+	<array>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>invalid</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>invalid</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>invalid</string>
+				</dict>
+				<key>4</key>
+				<dict>
+					<key>name</key>
+					<string>invalid</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>&gt; (Warning|Error)|('Failed')|(Error:) |(Stack:)</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>errors</string>
+			<key>match</key>
+			<string>WARN\||ERR \||&gt;&gt;  \||Cannot create folder|GuestLogin|Failed to enumerate changed areas of the disk using CTK|Cannot use mode hotadd|Cannot mount using this method|Unable to access file|Request timed out|VIX Error|Failed to connect to guest agent|Cannot connect to the host's administrative share</string>
+			<key>name</key>
+			<string>invalid</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>old versions</string>
+			<key>match</key>
+			<string>\[(5|6|7)\.(0|1|5)\.0\.\d\d\d]</string>
+			<key>name</key>
+			<string>invalid</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>IP address</string>
+			<key>match</key>
+			<string>\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}</string>
+			<key>name</key>
+			<string>string</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>timestamp</string>
+			<key>match</key>
+			<string>\[\d\d\.\d\d\.\d\d\d\d \d\d(:|\.)\d\d(:|\.)\d\d\]</string>
+			<key>name</key>
+			<string>constant.character</string>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string>"</string>
+			<key>end</key>
+			<string>"|$</string>
+			<key>name</key>
+			<string>string</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>match</key>
+					<string>.</string>
+					<key>name</key>
+					<string>string</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>begin</key>
+			<string> '</string>
+			<key>end</key>
+			<string>'|$</string>
+			<key>name</key>
+			<string>string</string>
+			<key>patterns</key>
+			<array>
+				<dict>
+					<key>include</key>
+					<string>$self</string>
+				</dict>
+				<dict>
+					<key>comment</key>
+					<string>agent commands</string>
+					<key>match</key>
+					<string>(undir|viSoapCreds|startServer|openAdditionalDownloadConnections|file2text|text2file|put|prepStorageForWriteEx|sendSignature|delSignature|closeStg|setTrafficCompressionLevel|srcSaveSignature|waitAllDisksClosed|attachVM|detachVM|vddkPrepareForAccess|openDownloadConnections|srcBackupFile|srcAttachVmEx|srcBackupTextSyntFullCopy|srcBackupText|srcBackupDisk|srcText2Tar|shareCreds|setStaRepositoryApartment|version|checkStg|Invoke|isRepositoryServerBusy|vddkEndAccess|stat|srcDetachVm|tar2text|srcReplicateVddkDiskContentIncremental|srcReplicateVddkDiskContent|recvSignature|srcLoadSignature|blocksize|isFileExists|continueBackupSrvFileToTape|continueSessionTapeOnNewMedia|backupSrvFileToTape|getTapeAlerts|checkTapeMedia|startSessionTape|setLogFlushing|backupLocalFileToTape|endSessionTape|breakJobWithReason|breakJob|importVhdDisk|text2tar|patch|backupCfgFileFromBackupFull|backupDiskFromBackupTrad|setTapeMediaBlockSizeToDrive|updateNetworkThrottling|renameFileWithRollback|overbuildIncrement|getTapeMediaId|getTapeHeader|backupSrvSynthesizedStgToTape|compileFIB|executeTapeScript|srcRestore|inventoryTape|dir|backupSrvDirToTape|loadSignature|saveSignature|calcSignature|closeAllStorages)</string>
+					<key>name</key>
+					<string>storage.type</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>match</key>
+			<string>\\n</string>
+			<key>name</key>
+			<string>comment</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>strings in square brackets</string>
+			<key>match</key>
+			<string>\[[%\.\/$:_ A-Za-z0-9\(\)\-\\']+\]</string>
+			<key>name</key>
+			<string>string</string>
+		</dict>
+		<dict>
+			<key>comment</key>
+			<string>important events</string>
+			<key>match</key>
+			<string>Processing object|Task session|Job session|File version|Starting job mode|Host content info|VM information|Using source proxy|Using target proxy|Starting agent|Primary bottleneck|Task capacity|Task totalSize|Detected mode|Starting transformation|Disk:|Removing VM snapshot|Saving summary to backup file|Freezing guest operating system|Creating VM snapshot|by user|Creating storage|Renaming remote|Executing|VSS proxy is needed: VSS is enabled|Testing vss proxy ip|source proxy modes|target proxy modes</string>
+			<key>name</key>
+			<string>keyword</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>keyword</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>string</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>entity.other.attribute-name</string>
+				</dict>
+				<key>4</key>
+				<dict>
+					<key>name</key>
+					<string>string</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>agent session id</string>
+			<key>match</key>
+			<string>(Starting client agent session), id (')(....)(....-....-....-....-............')</string>
+		</dict>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type</string>
+				</dict>
+				<key>3</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type</string>
+				</dict>
+				<key>4</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type</string>
+				</dict>
+				<key>6</key>
+				<dict>
+					<key>name</key>
+					<string>comment</string>
+				</dict>
+			</dict>
+			<key>comment</key>
+			<string>bottlenecks</string>
+			<key>match</key>
+			<string>;(\d{1,3});(\d{1,3});(\d{1,3});\d{1,3};\d{1,3};(\d{1,3})(;\d{18}|\d{0})(|\\n)</string>
+		</dict>
+	</array>
+	<key>scopeName</key>
+	<string>source.log</string>
+	<key>uuid</key>
+	<string>d09bae69-0591-4a8d-89ae-0962c77d82b4</string>
+</dict>
+</plist>

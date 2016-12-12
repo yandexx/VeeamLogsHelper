@@ -1,0 +1,81 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+name: Veeam B&R Logs
+scopeName: source.log
+fileTypes: [log]
+uuid: d09bae69-0591-4a8d-89ae-0962c77d82b4
+
+patterns:
+- match: '> (Warning|Error)|(''Failed'')|(Error:) |(Stack:)'
+  captures:
+    '1': {name: invalid}
+    '2': {name: invalid}
+    '3': {name: invalid}
+    '4': {name: invalid}
+
+- comment: errors
+  name: invalid
+  match: WARN\||ERR \||>>  \||Cannot create folder|GuestLogin|Failed to enumerate
+    changed areas of the disk using CTK|Cannot use mode hotadd|Cannot mount using
+    this method|Unable to access file|Request timed out|VIX Error|Failed to connect
+    to guest agent|Cannot connect to the host's administrative share
+
+- comment: old versions
+  name: invalid
+  match: \[(5|6|7)\.(0|1|5)\.0\.\d\d\d]
+
+- comment: IP address
+  name: string
+  match: \d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}
+
+- comment: timestamp
+  name: constant.character
+  match: \[\d\d\.\d\d\.\d\d\d\d \d\d(:|\.)\d\d(:|\.)\d\d\]
+
+- name: string
+  begin: '"'
+  end: '"|$'
+  patterns:
+  - name: string
+    match: .
+
+- name: string
+  begin: ' '''
+  end: '''|$'
+  patterns:
+  - include: $self
+  - comment: agent commands
+    name: storage.type
+    match: (undir|viSoapCreds|startServer|openAdditionalDownloadConnections|file2text|text2file|put|prepStorageForWriteEx|sendSignature|delSignature|closeStg|setTrafficCompressionLevel|srcSaveSignature|waitAllDisksClosed|attachVM|detachVM|vddkPrepareForAccess|openDownloadConnections|srcBackupFile|srcAttachVmEx|srcBackupTextSyntFullCopy|srcBackupText|srcBackupDisk|srcText2Tar|shareCreds|setStaRepositoryApartment|version|checkStg|Invoke|isRepositoryServerBusy|vddkEndAccess|stat|srcDetachVm|tar2text|srcReplicateVddkDiskContentIncremental|srcReplicateVddkDiskContent|recvSignature|srcLoadSignature|blocksize|isFileExists|continueBackupSrvFileToTape|continueSessionTapeOnNewMedia|backupSrvFileToTape|getTapeAlerts|checkTapeMedia|startSessionTape|setLogFlushing|backupLocalFileToTape|endSessionTape|breakJobWithReason|breakJob|importVhdDisk|text2tar|patch|backupCfgFileFromBackupFull|backupDiskFromBackupTrad|setTapeMediaBlockSizeToDrive|updateNetworkThrottling|renameFileWithRollback|overbuildIncrement|getTapeMediaId|getTapeHeader|backupSrvSynthesizedStgToTape|compileFIB|executeTapeScript|srcRestore|inventoryTape|dir|backupSrvDirToTape|loadSignature|saveSignature|calcSignature|closeAllStorages)
+
+- name: comment
+  match: \\n
+
+- comment: strings in square brackets
+  name: string
+  match: \[[%\.\/$:_ A-Za-z0-9\(\)\-\\']+\]
+
+- comment: important events
+  name: keyword
+  match: 'Processing object|Task session|Job session|File version|Starting job mode|Host
+    content info|VM information|Using source proxy|Using target proxy|Starting agent|Primary
+    bottleneck|Task capacity|Task totalSize|Detected mode|Starting transformation|Disk:|Removing
+    VM snapshot|Saving summary to backup file|Freezing guest operating system|Creating
+    VM snapshot|by user|Creating storage|Renaming remote|Executing|VSS proxy is needed:
+    VSS is enabled|Testing vss proxy ip|source proxy modes|target proxy modes'
+
+- comment: agent session id
+  match: (Starting client agent session), id (')(....)(....-....-....-....-............')
+  captures:
+    '1': {name: keyword}
+    '2': {name: string}
+    '3': {name: entity.other.attribute-name}
+    '4': {name: string}
+
+- comment: bottlenecks
+  match: ;(\d{1,3});(\d{1,3});(\d{1,3});\d{1,3};\d{1,3};(\d{1,3})(;\d{18}|\d{0})(|\\n)
+  captures:
+    '1': {name: storage.type}
+    '2': {name: storage.type}
+    '3': {name: storage.type}
+    '4': {name: storage.type}
+    '6': {name: comment}
