@@ -29,7 +29,7 @@ patterns:
 
 - comment: timestamp
   name: constant.character
-  match: \[\d\d\.\d\d\.\d\d\d\d \d\d(:|\.)\d\d(:|\.)\d\d\]
+  match: \[\d\d\.\d\d\.\d\d\d\d \d\d(:|\.)\d\d(:|\.)\d\d(\.\d\d\d)?\]
 
 - name: string
   begin: '"'
@@ -45,7 +45,7 @@ patterns:
   - include: $self
   - comment: agent commands
     name: storage.type
-    match: (undir|viSoapCreds|startServer|openAdditionalDownloadConnections|file2text|text2file|put|prepStorageForWriteEx|sendSignature|delSignature|closeStg|setTrafficCompressionLevel|srcSaveSignature|waitAllDisksClosed|attachVM|detachVM|vddkPrepareForAccess|openDownloadConnections|srcBackupFile|srcAttachVmEx|srcBackupTextSyntFullCopy|srcBackupText|srcBackupDisk|srcText2Tar|shareCreds|setStaRepositoryApartment|version|checkStg|Invoke|isRepositoryServerBusy|vddkEndAccess|stat|srcDetachVm|tar2text|srcReplicateVddkDiskContentIncremental|srcReplicateVddkDiskContent|recvSignature|srcLoadSignature|blocksize|isFileExists|continueBackupSrvFileToTape|continueSessionTapeOnNewMedia|backupSrvFileToTape|getTapeAlerts|checkTapeMedia|startSessionTape|setLogFlushing|backupLocalFileToTape|endSessionTape|breakJobWithReason|breakJob|importVhdDisk|text2tar|patch|backupCfgFileFromBackupFull|backupDiskFromBackupTrad|setTapeMediaBlockSizeToDrive|updateNetworkThrottling|renameFileWithRollback|overbuildIncrement|getTapeMediaId|getTapeHeader|backupSrvSynthesizedStgToTape|compileFIB|executeTapeScript|srcRestore|inventoryTape|dir|backupSrvDirToTape|loadSignature|saveSignature|calcSignature|closeAllStorages|updateRepositoryThrottling|srcBackupDbTransactionLog|replicateVddkDiskDeltaIncremental|restoreDiskCache)
+    match: (undirEx|undir|viSoapCreds|startServer|openAdditionalDownloadConnections|file2text|text2file|put|prepStorageForWriteEx|sendSignature|delSignature|closeStg|setTrafficCompressionLevel|srcSaveSignature|waitAllDisksClosed|attachVM|detachVM|vddkPrepareForAccess|openDownloadConnections|srcBackupFile|srcAttachVmEx|srcBackupTextSyntFullCopy|srcBackupText|srcBackupDisk|srcText2Tar|shareCreds|setStaRepositoryApartment|version|checkStg|Invoke|isRepositoryServerBusy|vddkEndAccess|stat|srcDetachVm|tar2text|srcReplicateVddkDiskContentIncremental|srcReplicateVddkDiskContent|recvSignature|srcLoadSignature|blocksize|isFileExists|continueBackupSrvFileToTape|continueSessionTapeOnNewMedia|backupSrvFileToTape|getTapeAlerts|checkTapeMedia|startSessionTape|setLogFlushing|backupLocalFileToTape|endSessionTape|breakJobWithReason|breakJob|importVhdDisk|text2tar|patch|backupCfgFileFromBackupFull|backupDiskFromBackupTrad|setTapeMediaBlockSizeToDrive|updateNetworkThrottling|renameFileWithRollback|overbuildIncrement|getTapeMediaId|getTapeHeader|backupSrvSynthesizedStgToTape|compileFIB|executeTapeScript|srcRestore|inventoryTape|dir|backupSrvDirToTape|loadSignature|saveSignature|calcSignature|closeAllStorages|updateRepositoryThrottling|srcBackupDbTransactionLog|replicateVddkDiskDeltaIncremental|restoreDiskCache)
 
 - name: comment
   match: \\n
