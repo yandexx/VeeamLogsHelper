@@ -5,7 +5,7 @@ fileTypes: [log]
 uuid: d09bae69-0591-4a8d-89ae-0962c77d82b4
 
 patterns:
-- match: '> (Warning|Error)|(''Failed'')|(Error:) |(Stack:)'
+- match: '> {1,5}(Warning|Error)|(''Failed'')|(Error:) |(Stack:)'
   captures:
     '1': {name: invalid}
     '2': {name: invalid}

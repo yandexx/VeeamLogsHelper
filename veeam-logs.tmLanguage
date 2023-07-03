@@ -35,7 +35,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>&gt; (Warning|Error)|('Failed')|(Error:) |(Stack:)</string>
+			<string>&gt; {1,5}(Warning|Error)|('Failed')|(Error:) |(Stack:)</string>
 		</dict>
 		<dict>
 			<key>comment</key>
