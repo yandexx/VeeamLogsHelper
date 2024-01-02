@@ -16,7 +16,7 @@
 				<key>1</key>
 				<dict>
 					<key>name</key>
-					<string>invalid</string>
+					<string>string</string>
 				</dict>
 				<key>2</key>
 				<dict>
@@ -33,9 +33,14 @@
 					<key>name</key>
 					<string>invalid</string>
 				</dict>
+				<key>5</key>
+				<dict>
+					<key>name</key>
+					<string>invalid</string>
+				</dict>
 			</dict>
 			<key>match</key>
-			<string>&gt; {1,5}(Warning|Error)|('Failed')|(Error:) |(Stack:)</string>
+			<string>&gt; (\[\d\d\d\d\]){0,1} {1,5}(Warning|Error)|('Failed')|(Error:) |(Stack:)</string>
 		</dict>
 		<dict>
 			<key>comment</key>
