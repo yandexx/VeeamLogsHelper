@@ -40,7 +40,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>&gt; (\[\d\d\d\d\]){0,1} {0,5}(Warning|Error)|('Failed')|(Error:) |(Stack:)</string>
+			<string>&gt; (\[\w\w\w\w\]){0,1} {0,5}(Warning|Error)|('Failed')|(Error:) |(Stack:)</string>
 		</dict>
 		<dict>
 			<key>comment</key>
