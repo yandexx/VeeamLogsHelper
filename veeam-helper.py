@@ -54,7 +54,7 @@ def collect_info(path):
     cloud_agent_started_regex_ip = re.compile("Root Ip=&quot;(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})&quot;")
 
     for job_file in job_files:
-        with open(job_file) as f:
+        with open(job_file, encoding='utf-8', errors='replace') as f:
             #print (job_file)
             for line in f:
                 if "Starting agent with" in line:
@@ -121,19 +121,24 @@ def lookup_agent (digest, datetime):
         print("No sessions")
         return
     if len(session_matched) > 1:
-        session_matched.sort(key=sort_by_date)
+        if datetime is None:
+            # No timestamp available; pick the most recent session
+            session_matched.sort(key=sort_by_date)
+            session_matched = session_matched[-1]
+        else:
+            session_matched.sort(key=sort_by_date)
 
-        ss = None
-        for s in session_matched:
-            if sortable_date(s.date) <= sortable_date(datetime):
-                ss = s
-            else:
-                break
+            ss = None
+            for s in session_matched:
+                if sortable_date(s.date) <= sortable_date(datetime):
+                    ss = s
+                else:
+                    break
 
-        if ss == None:
-            print("No suitable sessions by date")
-            return
-        session_matched = ss
+            if ss == None:
+                print("No suitable sessions by date")
+                return
+            session_matched = ss
     else:
         session_matched = session_matched[0]
     
@@ -205,8 +210,10 @@ class AgentLookup(sublime_plugin.EventListener):
         
         p = re.compile("^\[(.+?)\]")
         m = p.search(current_line)
-        if m: 
+        if m:
             datetime = m.group(1)
+        else:
+            datetime = None
 
         agent = None
         if view.file_name():
